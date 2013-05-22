@@ -1,0 +1,19 @@
+{
+  "name": "nodeblog",
+  "version": "1.0.0",
+  "description": "Blog created using nodejs",
+  "main": "nodeblog.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashier/nodeblog.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "Blog"
+  ],
+  "author": "Ashier de Leon",
+  "license": "BSD"
+}
