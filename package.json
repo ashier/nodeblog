@@ -1,19 +1,14 @@
 {
-  "name": "nodeblog",
-  "version": "1.0.0",
-  "description": "Blog created using nodejs",
-  "main": "nodeblog.js",
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon nodeblog.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ashier/nodeblog.git"
-  },
-  "keywords": [
-    "Nodejs",
-    "Blog"
-  ],
-  "author": "Ashier de Leon",
-  "license": "BSD"
+  "dependencies": {
+    "express": "3.2.4",
+    "less-middleware": "*",
+    "nodemon" : "*",
+    "mongoose": "*"
+  }
 }
