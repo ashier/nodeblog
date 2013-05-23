@@ -1,7 +1,8 @@
 /* */
 define([
-    'backbone'
-    ], function(Backbone) {
+    'backbone',
+    'notes/views/note'
+    ], function(Backbone, NoteView) {
         var NodeBlogRouter = Backbone.Router.extend({
             routes: {
                 '':'notes'
@@ -14,11 +15,11 @@ define([
 
             // Handle Routes
             router.on('route:notes', function() {
-                console.log('notes called');
+                var noteView = new NoteView();
+                noteView.render();
             });
 
             // Start Backbone History
-            // Backbone.history = Backbone.history || new Backbone.History({});
             Backbone.history.start({pushState:true});
         };
 

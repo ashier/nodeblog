@@ -1,0 +1,67 @@
+// VARIABLES
+@import "variables.less";
+@import "mixin.less";
+
+
+header {
+
+    border-bottom: none;
+    margin: 20px 0;
+
+    .brand {
+
+        img {
+            float: left;
+        }
+
+        a {
+            &:hover {
+                color: @baseGreen;
+            }
+            color: @baseGray;
+        }
+
+        h1 {
+
+            font-family: 'DroidSansRegular';
+            float: left;
+            margin: 20px;
+            font-size: 1.8em;
+            font-weight: normal;
+            line-height: .8;
+
+            span {
+                font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+                font-size: .6em;
+                font-weight: normal;
+            }
+        }
+    }
+
+    nav {
+
+        font-size: 1.2em;
+
+        ul {
+            margin: 35px 0;
+            li {
+                display: inline;
+                margin: 0 20px;
+                a {
+                    &:hover {
+                        color: @baseGreen;
+                    }
+                    color: @baseGray;
+                }
+                &:last-child {
+                    margin-right: 30px;
+                }
+            }
+            .active {
+                a {
+                    color: @baseGreen;
+                }
+            }
+        }
+    }
+}

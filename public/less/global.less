@@ -1,0 +1,42 @@
+@import "variables.less";
+@import "mixin.less";
+
+html,
+body {
+    height: 100%;
+    /*background: url(../img/connect.png);*/
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+body {
+    padding-top: 20px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    border-top: 5px solid @baseGreen;
+}
+
+a {
+    color: @baseGreen;
+    &:hover {
+        color: @baseGray;
+        text-decoration:none;
+    }
+    .transition(color, 0.3s, ease);
+}
+
+article {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.loader {
+    display: block;
+    width: 32px;
+    margin: 30px 0;
+    margin: 0 auto;
+    padding: 40px;
+}
