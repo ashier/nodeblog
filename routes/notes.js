@@ -96,6 +96,25 @@ exports.addNote = function(req, res) {
     });
 };
 
+// Delete Note
+exports.deleteNote = function(req, res) {
+    var body = req.body;
+    Note.findOne({slug:body.slug}, function(err, note) {
+        if (err) {
+            res.json({status:"error", message:"Note cannot be found."});
+        } else {
+            console.log("Deleting note: ");
+            Note.remove({slug:body.slug}, function(err) {
+                if (err) {
+                    res.json({status:"error", message:"Note cannot be deleted."});
+                } else {
+                    res.json({status:"ok", message:"Note has been deleted."});
+                }
+            });
+        }
+    });
+};
+
 generateSlug = function (string) {
     return string.trim().replace(/\s+/g, '-').replace(/[^\w\-]/g, '').toLowerCase();
 };
