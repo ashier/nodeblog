@@ -31,6 +31,7 @@ app.delete('/api/note/', notes.deleteNote);
 
 // tags
 app.get('/api/tag', tags.index);
+app.post('/api/note', tags.addTag);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
