@@ -21,11 +21,11 @@ app.get('/', function(req, res) {
     res.render('/views/index.html');
 });
 
-app.get('/note', notes.index);
-app.get('/note/:slug', notes.noteBySlug);
-app.post('/note', notes.addNote);
-app.put('/note/', notes.updateNote);
-app.delete('/note/', notes.deleteNote)
+app.get('/api/note', notes.index);
+app.get('/api/note/:slug', notes.noteBySlug);
+app.post('/api/note', notes.addNote);
+app.put('/api/note/', notes.updateNote);
+app.delete('/api/note/', notes.deleteNote);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

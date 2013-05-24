@@ -34,10 +34,10 @@
                     </a>
                 </div>
                 <nav id="main-nav" class="pull-right">
-                    <ul>
+                    <!--ul>
                         <li><a href="#">About</a></li>
                         <li><a href="#">Contacts</a></li>
-                    </ul>
+                    </ul-->
                 </nav>
             </div>
         </header>
@@ -47,23 +47,23 @@
         </div>
 
         <footer></footer>
+
+        <script type="text/template" id="note-template">
+            <article>
+                <header class="no-image">
+                    <p>{{title}}</p>
+                </header>
+                <div class="note-content">
+                    <p>{{contents}}</p>
+                    <button class="btn" article-data="{{slug}}">CONTINUE READING</button>
+                </div>
+            </article>
+        </script>
+
         <script type="text/javascript">
             Modernizr.load({});
         </script>
         <script data-main="/static/js/config" src="/static/js/vendor/require.js"></script>
-
-        <script type="text/template" id="item-template">
-                    <header class="no-image">
-                        <p>{{title}}</p>
-                    </header>
-                    <div class="note-content">
-                        <p>{{contents}}</p>
-                        <button class="btn">CONTINUE READING</button>
-                    </div>
-                    <footer class="note-footer">
-                        article footer here....
-                    </footer>
-        </script>
 
     </body>
 </html>

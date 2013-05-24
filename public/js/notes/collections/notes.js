@@ -1,11 +1,12 @@
 /* */
 define([
     'backbone',
-    '/notes/models/note'
+    'notes/models/note'
     ], function(Backbone, Note) {
 
         var Notes = Backbone.Collection.extend({
-            model:Note
+            model:Note,
+            url:"api/note"
         });
 
         return Notes;
