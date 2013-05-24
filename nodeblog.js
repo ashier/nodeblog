@@ -24,10 +24,14 @@ app.get('/', function(req, res) {
 
 // notes
 app.get('/api/note', notes.index);
-app.get('/api/note/:slug', notes.noteBySlug);
 app.post('/api/note', notes.addNote);
 app.put('/api/note/', notes.updateNote);
 app.delete('/api/note/', notes.deleteNote);
+
+// by slug
+app.get('/api/note/:slug', notes.index);
+app.put('/api/note/:slug', notes.updateNote);
+app.delete('/api/note/:slug', notes.deleteNote);
 
 // tags
 app.get('/api/tag', tags.index);

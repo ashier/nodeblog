@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 
 mongoose.connect('mongodb://localhost/nodeblog');
 
-var noteSchema = mongoose.Schema({
+var noteSchema = Schema({
     title: String,
     author: {
         first: String,
@@ -23,7 +23,7 @@ var noteSchema = mongoose.Schema({
     }
 });
 
-var tagSchema = mongoose.Schema({
+var tagSchema = Schema({
     name: String,
     slug: String,
 });
