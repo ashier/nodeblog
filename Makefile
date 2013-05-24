@@ -7,7 +7,7 @@ HR=\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\
 
 build:
 	@echo "\n${HR}"
-	@./node_modules/.bin/recess --compile ${NODEBLOG_LESS} > ${NODEBLOG}
+	@./node_modules/.bin/recess --compile --compress ${NODEBLOG_LESS} > ${NODEBLOG}
 	@echo "Compiling LESS with Recess...               ${CHECK} Done"
 	@echo "\n${HR}"
 	@echo "LESS successfully compiled at ${DATE}."
