@@ -12,9 +12,7 @@ var noteSchema = mongoose.Schema({
     },
     contents: String,
     slug: String,
-    tags: {
-        type:Array
-    },
+    tags: [ObjectId],
     created: {
         type: Date,
         default: Date.now
