@@ -19,6 +19,8 @@ define([
                 var templateHTML = $('#note-template').html();
                 var html = "";
                 _.each(this.model.toJSON(), function(note) {
+                    var df = new Date(Date.parse(note.created));
+                    note.formattedDate = df.toLocaleString();
                     html += _.template(templateHTML, note);
                 });
                 this.$el.html(html);

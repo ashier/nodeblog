@@ -1,38 +1,21 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/nodeblog');
+var db = require('./db');
 
-var noteSchema = mongoose.Schema({
-    title: String,
-    author: {
-        first: String,
-        last: String
-    },
-    contents: String,
-    slug: String,
-    created: {
-        type: Date,
-        default: Date.now
-    },
-    modified: {
-        type: Date,
-        default: Date.now
-    }
-});
-
-var Note = mongoose.model('Note', noteSchema);
-// var notes = require('./db');
+var Note = db.note;
 
 exports.index = function(req, res) {
-    Note.find(function (err, notes) {
-        var response;
-        if (err) {
-            response = {status:"error", message:err};
-        } else {
-            response = notes;
-        }
-        console.log("response :: " + response);
-        res.json(response);
-    });
+    console.log(db);
+    Note.find()
+        .sort({created: -1})
+        .exec(function (err, notes) {
+            var response;
+            if (err) {
+                response = {status:"error", message:err};
+            } else {
+                response = notes;
+            }
+            console.log("response :: " + response);
+            res.json(response);
+        });
 };
 
 exports.noteBySlug = function(req, res) {
@@ -99,18 +82,11 @@ exports.addNote = function(req, res) {
 // Delete Note
 exports.deleteNote = function(req, res) {
     var body = req.body;
-    Note.findOne({slug:body.slug}, function(err, note) {
+    Note.findOneAndRemove({slug:body.slug}, function(err, note) {
         if (err) {
             res.json({status:"error", message:"Note cannot be found."});
         } else {
-            console.log("Deleting note: ");
-            Note.remove({slug:body.slug}, function(err) {
-                if (err) {
-                    res.json({status:"error", message:"Note cannot be deleted."});
-                } else {
-                    res.json({status:"ok", message:"Note has been deleted."});
-                }
-            });
+            res.json({status:"ok", message:"Note has been deleted."});
         }
     });
 };

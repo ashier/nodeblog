@@ -1,33 +1,41 @@
-var notes = [];
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 
-notes.push({
-    title: 'Post #1',
+mongoose.connect('mongodb://localhost/nodeblog');
+
+var noteSchema = mongoose.Schema({
+    title: String,
     author: {
-        first: "Ashier",
-        last: "de Leon"
+        first: String,
+        last: String
     },
-    contents: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    created: new Date()
+    contents: String,
+    slug: String,
+    tags: Array,
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    modified: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-notes.push({
-    title: 'Post #2',
-    author: {
-        first: "Ashier",
-        last: "de Leon"
-    },
-    contents: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    created: new Date()
+var tagSchema = mongoose.Schema({
+    name: String,
+    slug: String,
 });
 
-notes.push({
-    title: 'Post #3',
-    author: {
-        first: "Ashier",
-        last: "de Leon"
-    },
-    contents: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    created: new Date()
-});
 
-module.exports = notes;
+function getTag() {
+    return mongoose.model('Tag', tagSchema);
+}
+
+function getNote() {
+    return mongoose.model('Note', noteSchema);
+}
+
+module.exports.tag = getTag();
+module.exports.note = getNote();

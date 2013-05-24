@@ -6,6 +6,7 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     notes = require('./routes/notes'),
+    tags = require('./routes/tags'),
     http = require('http');
 
 var app = express();
@@ -21,11 +22,15 @@ app.get('/', function(req, res) {
     res.render('/views/index.html');
 });
 
+// notes
 app.get('/api/note', notes.index);
 app.get('/api/note/:slug', notes.noteBySlug);
 app.post('/api/note', notes.addNote);
 app.put('/api/note/', notes.updateNote);
 app.delete('/api/note/', notes.deleteNote);
+
+// tags
+app.get('/api/tag', tags.index);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
