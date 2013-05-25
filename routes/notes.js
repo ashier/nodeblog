@@ -14,7 +14,6 @@ exports.read = function(req, res) {
 
     if (!slug) {
         Note.find()
-            .sort({created: -1})
             .select(noteSelect)
             .exec(
                 function (err, notes) {
@@ -22,6 +21,7 @@ exports.read = function(req, res) {
                         res.json({status:"error", message:err});
                     } else {
                         Note.find()
+                            .sort('-created')
                             .populate('tags', tagSelect)
                             .exec(function(err, notes) {
                                 if (!err) {

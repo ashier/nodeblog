@@ -32,7 +32,6 @@ noteSchema.virtual('author_fullname').get(function() {
 
 noteSchema.virtual('formatted_date').get(function() {
     var df = moment(this.created).fromNow();
-    console.log("Formatted Date >> " + df);
     return df;
 });
 
