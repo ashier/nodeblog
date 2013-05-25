@@ -119,6 +119,7 @@ exports.create = function(req, res) {
                 .exec(function(err, tag) {
                     if (!err) {
                         note.tags.push(tag);
+                        note.save();
                     }
                 });
         }
@@ -126,7 +127,13 @@ exports.create = function(req, res) {
 
     note.save(function(err, note) {
         if (!err) {
-             res.json(note);
+            Note.findOne({_id:note._id})
+                .populate('tags')
+                .exec(function(err, note) {
+                    if (!err) {
+                        res.json(note);
+                    }
+                });
         }
     });
 };
