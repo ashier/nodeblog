@@ -1,7 +1,7 @@
-var db = require('./db');
-var Tag = db.tag;
+var models = require('./models');
+var Tag = models.Tag;
 
-exports.index = function(req, res) {
+exports.read = function(req, res) {
     Tag.find()
         .sort({name: 1})
         .exec(function (err, tags) {
@@ -15,7 +15,7 @@ exports.index = function(req, res) {
         });
 };
 
-exports.addTag = function(req, res) {
+exports.create = function(req, res) {
     var body = req.body;
     console.log('Adding tag: ' + JSON.stringify(body));
     var tag = new Tag({

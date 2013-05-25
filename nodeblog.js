@@ -22,20 +22,20 @@ app.get('/', function(req, res) {
     res.render('/views/index.html');
 });
 
-// notes
-app.get('/api/note', notes.index);
-app.post('/api/note', notes.addNote);
-app.put('/api/note/', notes.updateNote);
-app.delete('/api/note/', notes.deleteNote);
+// notes CRUD
+app.post('/api/note', notes.create);
+app.get('/api/note', notes.read);
+app.put('/api/note/', notes.update);
+app.delete('/api/note/', notes.delete);
 
 // by slug
-app.get('/api/note/:slug', notes.index);
-app.put('/api/note/:slug', notes.updateNote);
-app.delete('/api/note/:slug', notes.deleteNote);
+app.get('/api/note/:slug', notes.read);
+app.put('/api/note/:slug', notes.update);
+app.delete('/api/note/:slug', notes.delete);
 
-// tags
-app.get('/api/tag', tags.index);
-app.post('/api/tag', tags.addTag);
+// tags CRUD
+app.get('/api/tag', tags.read);
+app.post('/api/tag', tags.create);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
