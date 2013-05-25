@@ -18,6 +18,7 @@ var noteSchema = new Schema({
         last: String
     },
     contents: String,
+    html: String,
     slug: String,
     tags: [{type: ObjectId, ref: 'Tag'}],
     created: {type: Date, default: Date.now},

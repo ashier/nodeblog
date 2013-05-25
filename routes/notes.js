@@ -1,10 +1,10 @@
-var models = require('./models');
+var models = require('./models'),
+    markdown = require( "markdown" ).markdown,
+    tagSelect = 'name slug',
+    noteSelect = 'title tags contents html created modified slug',
+    Note = models.Note,
+    Tag = models.Tag;
 
-var Note = models.Note;
-var Tag = models.Tag;
-
-var tagSelect = 'name slug';
-var noteSelect = 'title tags contents created modified slug';
 
 // index
 exports.read = function(req, res) {
@@ -51,7 +51,7 @@ exports.update = function(req, res) {
 
     var body = req.body;
     var slug = req.body.slug ? req.body.slug : req.params.slug;
-    var tags = body.tags.split(",");
+    var tags = body.tags ? body.tags.split(",") : null;
 
     Note.findOne({slug:slug})
         .select(noteSelect)
@@ -60,8 +60,9 @@ exports.update = function(req, res) {
             if (err) {
                 res.json({status:"error", message:"Note cannot be found."});
             } else {
-                note.title = body.title ? body.title : note.title;
-                note.contents = body.contents ? body.contents : note.contents;
+                note.title = ((body.title !== undefined) ? body.title : note.title) || note.title;
+                note.contents = ((body.contents !== undefined) ? body.contents : note.contents) || note.contents;
+                note.html = markdown.toHTML(note.contents);
                 note.modified = new Date();
 
                 if (tags) {
@@ -93,7 +94,7 @@ exports.update = function(req, res) {
 exports.create = function(req, res) {
 
     var body = req.body;
-    var tags = body.tags.split(",");
+    var tags = body.tags ? body.tags.split(",") : null;
 
     console.log("body.tags >> " + body.tags);
 
@@ -105,11 +106,13 @@ exports.create = function(req, res) {
         },
         slug:generateSlug(body.title),
         contents:body.contents,
+        html:markdown.toHTML(body.contents),
         created:new Date(),
         modified:new Date()
     });
 
     if (tags) {
+        note.tags = [];
         for(var i = 0; i < tags.length; i++) {
             console.log(" >> tag >>  " + tags[i]);
             Tag.findOne({_id: tags[i]})

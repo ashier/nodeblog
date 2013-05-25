@@ -36,6 +36,7 @@ app.delete('/api/note/:slug', notes.delete);
 // tags CRUD
 app.get('/api/tag', tags.read);
 app.post('/api/tag', tags.create);
+// app.put('/api/note/', tags.update);
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

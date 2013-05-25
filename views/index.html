@@ -58,11 +58,11 @@
                         <% if (note.tags.length) { %>
                             <div class="note-ribbon">
                                 <% _.each(note.tags, function(tag){ %>
-                                    <a href="/note/<%= tag.slug %>" title="<%= tag.name %>"><%= tag.name %></a>
+                                    <a href="/tag/<%= tag.slug %>" title="<%= tag.name %>"><%= tag.name %></a>
                                 <% }); %>
                             </div>
                         <% } %>
-                        <p><%= note.contents %></p>
+                        <%= note.html %>
                         <button class="btn" article-data="<%= note.slug %>">CONTINUE READING</button>
                     </div>
                     <footer class="note-footer">

@@ -16,7 +16,6 @@ define([
 
             render: function() {
                 var templateHTML = _.template($('#note-template').html(), {notes:this.model.toJSON()});
-                console.log("templateHTML > " + templateHTML);
                 this.$el.html(templateHTML);
                 return this;
             },
