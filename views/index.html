@@ -66,7 +66,7 @@
                         <button class="btn" article-data="<%= note.slug %>">CONTINUE READING</button>
                     </div>
                     <footer class="note-footer">
-                        Posted on <a href="#">date here...</a> by <a href="#"><%= note.author_fullname %></a>
+                        Posted <a href="#"><%= note.formatted_date %></a> by <a href="#"><%= note.author_fullname %></a>
                     </footer>
                 </article>
             <% }); %>

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    moment = require('moment'),
     Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
@@ -28,6 +29,13 @@ var noteSchema = new Schema({
 noteSchema.virtual('author_fullname').get(function() {
     return this.author.first + " " + this.author.last;
 });
+
+noteSchema.virtual('formatted_date').get(function() {
+    var df = moment(this.created).fromNow();
+    console.log("Formatted Date >> " + df);
+    return df;
+});
+
 
 module.exports.Tag = mongoose.model('Tag', tagSchema);
 module.exports.Note = mongoose.model('Note', noteSchema);
