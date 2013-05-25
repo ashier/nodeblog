@@ -15,19 +15,9 @@ define([
             },
 
             render: function() {
-                _.templateSettings = {interpolate : /\{\{([\s\S]+?)\}\}/g};
-                var templateHTML = $('#note-template').html();
-                var html = "";
-                _.each(this.model.toJSON(), function(note) {
-                    var df = new Date(Date.parse(note.created));
-                    note.formattedDate = df.toLocaleString();
-                    console.log("tags in view : " + note.tags);
-                    _.each(note.tags, function(tag) {
-                        console.log("tag in view : " + tag);
-                    });
-                    html += _.template(templateHTML, note);
-                });
-                this.$el.html(html);
+                var templateHTML = _.template($('#note-template').html(), {notes:this.model.toJSON()});
+                console.log("templateHTML > " + templateHTML);
+                this.$el.html(templateHTML);
                 return this;
             },
 

@@ -19,7 +19,7 @@ var noteSchema = new Schema({
     },
     contents: String,
     slug: String,
-    tags: [tagSchema],
+    tags: [{type: ObjectId, ref: 'Tag'}],
     created: {type: Date, default: Date.now},
     modified: {type: Date, default: Date.now}
 }, schemaOptions);

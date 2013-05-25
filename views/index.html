@@ -49,19 +49,27 @@
         <footer></footer>
 
         <script type="text/template" id="note-template">
-            <article>
-                <header class="no-image">
-                    <p>{{title}}</p>
-                </header>
-                <div class="note-content">
-                    <div id="tag-{{slug}}" class="note-ribbon hidden"></div>
-                    <p>{{contents}}</p>
-                    <button class="btn" article-data="{{slug}}">CONTINUE READING</button>
-                </div>
-                <footer class="note-footer">
-                    Posted on <a href="#">{{formattedDate}}</a> by <a href="#">{{author_fullname}}</a>
-                </footer>
-            </article>
+            <% _.each(notes, function(note){ %>
+                <article>
+                    <header class="no-image">
+                        <p><%= note.title %></p>
+                    </header>
+                    <div class="note-content">
+                        <% if (note.tags.length) { %>
+                            <div class="note-ribbon">
+                                <% _.each(note.tags, function(tag){ %>
+                                    <a href="/note/<%= tag.slug %>" title="<%= tag.name %>"><%= tag.name %></a>
+                                <% }); %>
+                            </div>
+                        <% } %>
+                        <p><%= note.contents %></p>
+                        <button class="btn" article-data="<%= note.slug %>">CONTINUE READING</button>
+                    </div>
+                    <footer class="note-footer">
+                        Posted on <a href="#">date here...</a> by <a href="#"><%= note.author_fullname %></a>
+                    </footer>
+                </article>
+            <% }); %>
         </script>
 
         <script type="text/javascript">

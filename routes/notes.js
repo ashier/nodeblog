@@ -3,6 +3,9 @@ var models = require('./models');
 var Note = models.Note;
 var Tag = models.Tag;
 
+var tagSelect = 'name slug';
+var noteSelect = 'title tags contents created modified slug';
+
 // index
 exports.read = function(req, res) {
 
@@ -12,35 +15,35 @@ exports.read = function(req, res) {
     if (!slug) {
         Note.find()
             .sort({created: -1})
-            .select('title tags contents created modified slug')
+            .select(noteSelect)
             .exec(
                 function (err, notes) {
-                    var response;
                     if (err) {
-                        response = {status:"error", message:err};
+                        res.json({status:"error", message:err});
                     } else {
-                        response = notes;
+                        Note.find()
+                            .populate('tags', tagSelect)
+                            .exec(function(err, notes) {
+                                if (!err) {
+                                    res.json(notes);
+                                }
+                            }
+                        );
                     }
-                    console.log("response :: " + response);
-                    res.json(response);
                 }
             );
     } else {
-        Note.find({slug:req.params.slug})
-            .select('title tags contents created modified slug')
-            .exec(
-                function(err, note) {
-                    var response;
-                    if (err) {
-                        response = {status:"error", message:"Note cannot be found."};
-                    } else {
-                        response = note;
-                    }
-                    res.json(response);
+        Note.findOne({slug:req.params.slug})
+            .select(noteSelect)
+            .populate('tags', tagSelect)
+            .exec(function(err, note) {
+                if (!err) {
+                    console.log('Updating note: ' + JSON.stringify(note));
+                    res.json(note);
                 }
-            );
+            }
+        );
     }
-
 };
 
 // update
@@ -51,7 +54,8 @@ exports.update = function(req, res) {
     var tags = body.tags.split(",");
 
     Note.findOne({slug:slug})
-        .select('title tags contents created modified slug')
+        .select(noteSelect)
+        .populate('tags', tagSelect)
         .exec(function(err, note) {
             if (err) {
                 res.json({status:"error", message:"Note cannot be found."});
@@ -61,24 +65,24 @@ exports.update = function(req, res) {
                 note.modified = new Date();
 
                 if (tags) {
+                    note.tags = [];
                     for(var i = 0; i < tags.length; i++) {
                         console.log(" >> tag >>  " + tags[i]);
                         Tag.findOne({_id: tags[i]})
                             .exec(function(err, tag) {
                                 if (!err) {
                                     note.tags.push(tag);
+                                    note.save();
                                 }
                             });
                     }
                 }
 
                 note.save(function(err, note) {
-                    console.log('Updating note: ' + JSON.stringify(note));
                     if (err) {
                         res.json({status:"error", message:"Note cannot be updated."});
                     } else {
-                        console.log("Note has been updated...");
-                        res.json(note);
+                       res.json(note);
                     }
                 });
             }
