@@ -15,23 +15,16 @@ exports.read = function(req, res) {
     if (!slug) {
         Note.find()
             .select(noteSelect)
-            .exec(
-                function (err, notes) {
-                    if (err) {
-                        res.json({status:"error", message:err});
-                    } else {
-                        Note.find()
-                            .sort('-created')
-                            .populate('tags', tagSelect)
-                            .exec(function(err, notes) {
-                                if (!err) {
-                                    res.json(notes);
-                                }
-                            }
-                        );
-                    }
+            .sort('-created')
+            .populate('tags', tagSelect)
+            .exec(function(err, notes) {
+                if (!err) {
+                    res.json(notes);
+                } else {
+                    res.json({status:"error", message:err});
                 }
-            );
+            }
+        );
     } else {
         Note.findOne({slug:req.params.slug})
             .select(noteSelect)
